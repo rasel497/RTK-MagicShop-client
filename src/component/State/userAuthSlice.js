@@ -6,10 +6,10 @@ const userSlice = createSlice({
         users: null,
         isLoading: true,
         isLogedIn: false,
-        // isAuthenticated: false,
-        // privateRoute: {
-        //     authorized: false,
-        // },
+        isAuthenticated: false,
+        privateRoute: {
+            authorized: false,
+        },
     },
     reducers: {
         setLoading: (state) => {
@@ -27,6 +27,7 @@ const userSlice = createSlice({
         //  when use PrivateRoute component
         setPrivateRouteAuthorized: (state, action) => {
             state.privateRoute.authorized = action.payload;
+            console.log('mmm', action.payload);
         },
     }
 });

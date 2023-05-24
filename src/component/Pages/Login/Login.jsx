@@ -14,12 +14,13 @@ const Login = () => {
     const navigate = useNavigate();
 
     // const location = useLocation();
-    // const form = location.state?.form?.pathname || '/profile'
+    // const form = location.state?.form?.pathname || '/';
 
     const handleLogin = (data) => {
         axios.post('http://localhost:5000/userLogin/', data)
             .then((res) => {
                 dispatch(setIsLogedIn());
+
                 navigate('/profile');
                 // navigate(form, { replace: true })
                 localStorage.setItem('user', JSON.stringify(res.data))
