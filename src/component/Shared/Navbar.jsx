@@ -33,7 +33,11 @@ const Navbar = () => {
         <React.Fragment>
             {
                 isLogedIn ?
-                    <li className='font-bold'><button onClick={handleLogOut} to='/login'>SignOut/{userName}</button></li>
+                    <>
+                        <li className='font-bold'><Link to='/myproduct'>My product</Link></li>
+                        <li className='font-bold'><Link to='/addproduct'>Add product</Link></li>
+                        <li className='text-red-400 font-bold'><button onClick={handleLogOut} to='/login'>SignOut/{userName}</button></li>
+                    </>
                     :
                     <li className='font-bold'><Link to='/login'>Login</Link></li>
             }

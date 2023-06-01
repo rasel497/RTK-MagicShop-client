@@ -7,15 +7,24 @@ const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [registrationStatus, setRegistration] = useState("");
 
+    // check same User already exsit or Not?
+    // const { users } = useSelector((state) => state.users)
+    // const userExists = users?.filter((e) => e.email === 'email');
+    // console.log('dddd5', userExists);
+
     const handlCreatePost = (data) => {
         axios.post('http://localhost:5000/userRegistration/', data)
             .then((res) => {
+                // if (userExists) {
+                //     console.log("User already exists");
+                // } else {
+                //     console.log("User does not exist");
+                // }
                 if (res.data.message) {
                     setRegistration(res.data.message)
                 } else {
                     setRegistration("Registration Successful")
                 }
-                // console.log('Res:', res.data);
             })
             .catch(err => console.log(err));
     }

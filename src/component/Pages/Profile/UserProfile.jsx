@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 const UserProfile = () => {
     const [userData, setUserData] = useState(null);
     console.log('ddddpp', userData);
+    
     // set user in profile card
     useEffect(() => {
         const storedData = JSON.parse(localStorage.getItem('user'));
@@ -15,11 +16,11 @@ const UserProfile = () => {
     return (
         <div className='flex justify-center mt-10'>
             <div className="card card-compact w-96 bg-slate-500 shadow-xl p-5">
-                <h2 className='text-center text-2xl text-green-500 font-bold'>Welcome To Profile</h2>
                 <div className="card-body text-white">
                     {Array.isArray(userData) ?
                         userData.map((user, index) => (
                             <div key={index}>
+                                <h2 className='text-center text-2xl text-green-500 font-bold'>Welcome To Profile</h2>
                                 <h2 className="card-title">
                                     Name: <span className='text-green-500'>{user?.username}</span>
                                 </h2>
@@ -33,8 +34,8 @@ const UserProfile = () => {
                         ))
                         :
                         <>
+                            <h2 className='text-center text-2xl text-green-500 font-bold'>Wrong email or password</h2>
                             <p>No user data available. <Link to='/login' className='text-red-500 underline'>Please Login</Link> </p>
-                            <p>Wrong E-mail & Password</p>
                         </>
                     }
                 </div>

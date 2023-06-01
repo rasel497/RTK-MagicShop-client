@@ -6,14 +6,16 @@ const userSlice = createSlice({
         users: null,
         isLoading: true,
         isLogedIn: false,
-        isAuthenticated: false,
-        privateRoute: {
-            authorized: false,
-        },
+        // isAuthenticated: false,
+        currentUser: null,
     },
     reducers: {
         setLoading: (state) => {
             state.isLoading = true;
+        },
+        setUsers: (state, action) => {
+            state.users = action.payload;
+            console.log('usrSnlice', action);
         },
         setIsLogedIn: (state) => {
             state.isLoading = false;
@@ -23,14 +25,13 @@ const userSlice = createSlice({
             state.isLoading = false;
             state.isLogedIn = false;
         },
+        setCurrentUser: (state, action) => {
+            state.currentUser = action.payload;
+            console.log('currentUser', action.payload);
+        }
 
-        //  when use PrivateRoute component
-        setPrivateRouteAuthorized: (state, action) => {
-            state.privateRoute.authorized = action.payload;
-            console.log('mmm', action.payload);
-        },
     }
 });
 
-export const { setIsLogedIn, setIsLogedOut, setPrivateRouteAuthorized } = userSlice.actions;
+export const { setCurrentUser, setUsers, setIsLogedIn, setIsLogedOut } = userSlice.actions;
 export default userSlice.reducer;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,22 +9,35 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { users } = useSelector((state) => state.users);
-
+    console.log('user', users);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // const location = useLocation();
-    // const form = location.state?.form?.pathname || '/';
+    // after login check user have or not then according to show loginStatus Wrong or Navigate to=profile
+    const [loginStatus, setLoginStatus] = useState();
 
+    // const handleLogin = (data) => {
+    //     axios.post('http://localhost:5000/userLogin/', data)
+    //         .then((res) => {
+    //             navigate('/profile');
+    //             dispatch(setIsLogedIn());
+    //             localStorage.setItem('user', JSON.stringify(res.data))
+    //             return res.data;
+    //         })
+    //         .catch(err => console.error(err));
+    // };
     const handleLogin = (data) => {
         axios.post('http://localhost:5000/userLogin/', data)
             .then((res) => {
-                dispatch(setIsLogedIn());
-
-                navigate('/profile');
-                // navigate(form, { replace: true })
-                localStorage.setItem('user', JSON.stringify(res.data))
-                return res.data;
+                if (res.data) {
+                    // User exists, navigate to profile
+                    navigate('/profile');
+                    dispatch(setIsLogedIn());
+                    localStorage.setItem('user', JSON.stringify(res.data));
+                } else {
+                    // User does not exist, set login status message
+                    setLoginStatus("Wrong email or password!");
+                }
             })
             .catch(err => console.error(err));
     };
@@ -32,7 +45,8 @@ const Login = () => {
         <div className="flex justify-center">
             <div className='flex justify-center items-center rounded-md bg-indigo-950 my-10' style={{ width: "550px" }}>
                 <div className='w-96 p-7'>
-                    <h2 className='text-center text-2xl text-white font-bold'>Login:
+                    <h2 className='text-center text-2xl text-white font-bold'>Login
+                        <span className='text-red-500'> {loginStatus}</span> <br />
                         <span className='text-red-500'> {users?.email}</span>
                     </h2>
                     <form onSubmit={handleSubmit(handleLogin)}>
