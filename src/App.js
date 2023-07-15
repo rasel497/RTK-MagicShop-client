@@ -9,6 +9,7 @@ import PrivateRoute from './PrivateRoute/PrivateRoute';
 import Home from './component/Pages/Home/Home';
 import AddProductForm from './component/Pages/Home/Products/AddProductForm';
 import MyProduct from './component/Pages/Home/Products/MyProduct';
+import Cart from './component/Pages/Home/Cart';
 
 function App() {
   const { isLogedIn } = useSelector((state) => state.users);
@@ -24,6 +25,7 @@ function App() {
         {/* <PrivateRoute path="/profile" element={<UserProfile />} /> */}
         <Route path='/addproduct' element={<AddProductForm />} />
         <Route path='/myproduct' element={<MyProduct />} />
+        <Route path='/cart' element={<Cart />} />
       </Routes>
     </>
   );

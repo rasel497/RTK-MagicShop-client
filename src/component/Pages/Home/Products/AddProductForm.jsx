@@ -1,11 +1,20 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 
 const AddProductForm = () => {
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, reset, formState, formState: { errors }, handleSubmit } = useForm();
     const [addProduct, setAddProduct] = useState();
+
+    // after form is submit successfull then reset all field
+    useEffect(() => {
+        if (formState.isSubmitSuccessful) {
+            reset({
+                productName: '', productPrice: '', productImage: '', status: 'Select', productDescription: ''
+            })
+        }
+    }, [reset, formState.isSubmitSuccessful]);
 
     const handleAddProduct = (data) => {
         const localuser = JSON.parse(localStorage.getItem('user'));
@@ -49,13 +58,25 @@ const AddProductForm = () => {
                         />
                         {errors.productImage && <p className='text-red-600'>{errors.productImage?.message}</p>}
                     </div>
-                    <div className="form-control w-full max-w-xs">
-                        <label className="label"><span className="label-text font-bold text-white text-md">Status of product?</span></label>
-                        <select className="select select-info w-full max-w-xs" {...register("status")}>
-                            <option value="select">Select</option>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
-                        </select>
+                    <div className='flex'>
+                        <div className="form-control w-full max-w-xs">
+                            <label className="label"><span className="label-text font-bold text-white text-md">Status of product?</span></label>
+                            <select className="select select-info w-full max-w-xs" {...register("status")}>
+                                <option selected>Select</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <div className="form-control ml-2 w-full max-w-xs">
+                            <label className="label"><span className="label-text font-bold text-white text-md">Category?</span></label>
+                            <select className="select select-info w-full max-w-xs" {...register("category")}>
+                                <option selected>Select</option>
+                                <option>Smart Watch</option>
+                                <option>Mobile</option>
+                                <option>Earphone</option>
+                                <option>Laptop</option>
+                            </select>
+                        </div>
                     </div>
                     <div className='form-control w-full'>
                         <label className="label"><span className="label-text font-bold text-white text-md">Product Description</span></label>

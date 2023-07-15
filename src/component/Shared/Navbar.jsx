@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsLogedIn, setIsLogedOut } from '../State/userAuthSlice';
+import { BsFillCartFill } from "react-icons/bs";
 
 const Navbar = () => {
     const { isLogedIn } = useSelector((state) => state.users);
@@ -25,7 +26,7 @@ const Navbar = () => {
     const handleLogOut = () => {
         dispatch(setIsLogedOut());
         localStorage.removeItem('user');
-        window.location.replace('/login');
+        window.location.replace('/');
     }
 
     // user have or not
@@ -39,28 +40,41 @@ const Navbar = () => {
                         <li className='text-red-400 font-bold'><button onClick={handleLogOut} to='/login'>SignOut/{userName}</button></li>
                     </>
                     :
-                    <li className='font-bold'><Link to='/login'>Login</Link></li>
+                    <>
+                        <li title='cart' className='bg-indigo-500 rounded-md'>
+                            <Link to='/cart'><BsFillCartFill className='text-white' /></Link>
+                        </li>
+                        <li className='font-bold'><Link to='/login'>Login</Link></li>
+                    </>
             }
         </React.Fragment>
     return (
-        <div className="navbar bg-base-100 flex justify-between" style={{ backgroundColor: "#0088CC" }}>
-            <div className="navbar-start">
-                <div className="dropdown">
-                    <label tabIndex={0} className="btn btn-ghost lg:hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+        <section>
+            <div className="navbar bg-base-100 flex justify-between" style={{ backgroundColor: "#0088CC" }}>
+                <div className="navbar-start">
+                    <div className="dropdown">
+                        <label tabIndex={0} className="btn btn-ghost lg:hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                        </label>
+                        <ul tabIndex={1} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                            {menuItems}
+                        </ul>
+                    </div>
+                    <Link to='/' className="btn btn-ghost normal-case text-2xl font-bold"><span className='text-white'>MagicShop</span></Link>
+                </div>
+                <div className="form-control">
+                    <label className="input-group input-group-sm">
+                        <input type="text" placeholder="search product" className="input input-bordered input-sm" />
+                        <span><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></span>
                     </label>
-                    <ul tabIndex={1} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                </div>
+                <div className="navbar-center hidden lg:flex">
+                    <ul className="menu menu-horizontal p-0 text-white">
                         {menuItems}
                     </ul>
                 </div>
-                <Link to='/' className="btn btn-ghost normal-case text-2xl font-bold"><span className='text-white'>Login Auth System</span></Link>
             </div>
-            <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal p-0 text-white">
-                    {menuItems}
-                </ul>
-            </div>
-        </div>
+        </section>
     );
 };
 
