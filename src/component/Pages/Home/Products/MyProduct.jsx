@@ -82,6 +82,7 @@ const MyProduct = () => {
                             <th>Product Name</th>
                             <th>Description</th>
                             <th>Price</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -105,6 +106,12 @@ const MyProduct = () => {
                                     </td>
                                     <td>{product.productDescription.slice(0, 30) + '...'}</td>
                                     <td>${product.productPrice}</td>
+                                    <td>
+                                        <select className='bg-sky-700 text-white rounded-sm'>
+                                            <option value="">Active</option>
+                                            <option value="">Inactive</option>
+                                        </select>
+                                    </td>
                                     <th>
                                         <div className='flex justify-between p-2'>
                                             <label onClick={() => handleEdit(product.id)} htmlFor="product-modal-1" className='btn btn-sm bg-green-600 mr-2' >Edit</label>

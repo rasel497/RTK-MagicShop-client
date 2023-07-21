@@ -15,7 +15,6 @@ const ProductCard = ({ product }) => {
         <div className='card-compact bg-slate-300 shadow-xl rounded-sm mx-10 w-72' key={product.id}>
             <div className='w-32 mt-10 mx-20'>
                 <figure>
-                    {/* hover:scale-110 transition duration-500 cursor-pointer */}
                     <img
                         className='hover:scale-150 transition duration-500 cursor-pointer object-cover'
                         src={product.productImage} alt='No available...' />

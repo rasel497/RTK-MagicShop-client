@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsLogedIn, setIsLogedOut } from '../State/userAuthSlice';
 import { BsFillCartFill } from "react-icons/bs";
+import SearchFilter from './SearchFilter';
 
 const Navbar = () => {
     const { isLogedIn } = useSelector((state) => state.users);
@@ -62,12 +63,7 @@ const Navbar = () => {
                     </div>
                     <Link to='/' className="btn btn-ghost normal-case text-2xl font-bold"><span className='text-white'>MagicShop</span></Link>
                 </div>
-                <div className="form-control">
-                    <label className="input-group input-group-sm">
-                        <input type="text" placeholder="search product" className="input input-bordered input-sm" />
-                        <span><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></span>
-                    </label>
-                </div>
+                <SearchFilter />
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal p-0 text-white">
                         {menuItems}
